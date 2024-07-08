@@ -1,0 +1,40 @@
+@startuml
+
+entity Books {
+    id INT <<PK>>
+    title VARCHAR
+    call_number VARCHAR
+    created_at DATETIME
+    updated_at  DATETIME
+    ---
+    author_publisher_id INT <<FK>>
+}
+
+entity Authors {
+    id INT <<PK>>
+    name VARCHAR
+    created_at DATETIME
+    updated_at DATETIME
+}
+
+entity Publishers {
+    id INT <<PK>>
+    name VARCHAR
+    created_at DATETIME
+    updated_at DATETIME
+}
+
+entity AuthorPublisher {
+    id INT <<PK>>
+    created_at DATETIME
+    updated_at DATETIME
+    ---
+    author_id INT <<FK>>
+    publisher_id INT <<FK>>
+}
+
+Authors ||--o{ AuthorPublisher : "many-to-many"
+Publishers ||--o{ AuthorPublisher : "many-to-many"
+AuthorPublisher ||--o{ Books : "one-to-many"
+
+@enduml
